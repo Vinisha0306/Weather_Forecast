@@ -1,24 +1,50 @@
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
+import 'package:get/get.dart';
+import 'package:weather_forecast/controller/themeController.dart';
+import 'package:weather_forecast/views/Search_page/Search_page.dart';
 import 'package:weather_forecast/views/home_page/home_page.dart';
+import 'package:weather_forecast/views/intro_page/intro_page.dart';
+import 'package:weather_forecast/views/login_page/login_page.dart';
+import 'package:weather_forecast/views/splashScreen/splashScreen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
-class MyApp extends StatefulWidget {
-  const MyApp({super.key});
+class MyApp extends StatelessWidget {
+  MyApp({super.key});
 
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
+  ThemeController themeController = Get.put(ThemeController());
 
-class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
+      theme: ThemeData.light(),
+      darkTheme: ThemeData.dark(),
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      home: SplashScreen(),
+      getPages: [
+        GetPage(
+          name: '/login_page',
+          page: () => LoginPage(),
+        ),
+        GetPage(
+          name: '/home_page',
+          page: () => HomePage(),
+        ),
+        GetPage(
+          name: '/',
+          page: () => SplashScreen(),
+        ),
+        GetPage(
+          name: '/intro_page',
+          page: () => IntroPage(),
+        ),
+        GetPage(
+          name: '/search_page',
+          page: () => SearchPage(),
+        ),
+      ],
     );
   }
 }

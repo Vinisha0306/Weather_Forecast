@@ -1,26 +1,21 @@
-import 'package:flutter/cupertino.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:logger/logger.dart';
+import 'package:weather_forecast/Helper/LocationHelper.dart';
+import 'package:weather_forecast/Helper/WeatherHelper.dart';
+import 'package:weather_forecast/Modal/LocationModal.dart';
+import 'package:weather_forecast/Modal/WeatherModal.dart';
 
 class LocationController extends GetxController {
-  Position? position;
+  RxList<Location> allLocation = <Location>[].obs;
 
-  Future<void> getCurrentLocation() async {
-    position = await _determinePosition();
-    update();
+  LocationController() {
+    initData();
   }
 
-  Future<Position> _determinePosition() async {
-    LocationPermission permission;
+  Future<void> initData([lat, lon]) async {
+    allLocation.add(
+        await LocationHelper.locationHelper.getLocation(lat: lat, lon: lon));
 
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        return Future.error('Location Permissions are denied');
-      }
-    }
-
-    return await Geolocator.getCurrentPosition();
+    Logger().i(allLocation);
   }
 }
