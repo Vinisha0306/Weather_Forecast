@@ -8,19 +8,19 @@ import 'package:weather_forecast/Modal/searchModal.dart';
 class SearchHelper {
   SearchHelper._();
 
-  static final SearchHelper weatherHelper = SearchHelper._();
+  static final SearchHelper searchHelper = SearchHelper._();
 
   String Api =
       'https://api.geoapify.com/v1/geocode/search?apiKey=47b76baa281d4b6498b3664d8a6b72db';
 
-  Future<List<SearchModal>> getSearch({required city}) async {
-    List<SearchModal> allData = [];
+  Future<List<Search>> getSearch({required city}) async {
+    List<Search> allData = [];
 
     http.Response response = await http.get(Uri.parse('$Api&city=$city'));
 
     if (response.statusCode == 200) {
-      List data = jsonDecode(response.body)['features']['properties'];
-      allData = data.map((e) => SearchModal.fromJson(e)).toList();
+      List data = jsonDecode(response.body)['features'];
+      allData = data.map((e) => Search.fromJson(e)).toList();
     }
     Logger().i(response.statusCode);
 

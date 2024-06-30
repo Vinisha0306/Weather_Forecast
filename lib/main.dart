@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:weather_forecast/controller/themeController.dart';
+import 'package:weather_forecast/views/Favorite_page/Favorite_page.dart';
 import 'package:weather_forecast/views/Search_page/Search_page.dart';
 import 'package:weather_forecast/views/home_page/home_page.dart';
 import 'package:weather_forecast/views/intro_page/intro_page.dart';
@@ -43,6 +44,10 @@ class MyApp extends StatelessWidget {
         GetPage(
           name: '/search_page',
           page: () => SearchPage(),
+        ),
+        GetPage(
+          name: '/favorite_page',
+          page: () => FavoritePage(),
         ),
       ],
     );

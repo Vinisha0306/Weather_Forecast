@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:weather_forecast/controller/WeatherController.dart';
 import 'package:weather_forecast/controller/liveLocationController.dart';
-import 'package:weather_forecast/controller/locationController.dart';
 import 'package:weather_forecast/controller/themeController.dart';
 import 'package:weather_forecast/extension.dart';
 
@@ -13,7 +12,6 @@ class HomePage extends StatelessWidget {
   LiveLocationController liveLocationController =
       Get.put(LiveLocationController());
   WeatherController weatherController = Get.put(WeatherController());
-  LocationController locationController = Get.put(LocationController());
   ThemeController themeController = Get.find<ThemeController>();
 
   @override
@@ -53,11 +51,11 @@ class HomePage extends StatelessWidget {
             ),
           ),
           IconButton(
-            onPressed: () async {
-              await weatherController.initData();
+            onPressed: () {
+              Get.toNamed('/favorite_page');
             },
             icon: const Icon(
-              Icons.location_on,
+              Icons.favorite,
             ),
           ),
         ],
@@ -92,15 +90,19 @@ class HomePage extends StatelessWidget {
                           fontSize: 30,
                         ),
                       ),
-                      Row(
+                      const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Icon(
+                          Icon(
                             Icons.location_on,
                           ),
                           Text(
-                            locationController.allLocation[0].name,
-                          ),
+                            'Your Location',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 18,
+                            ),
+                          )
                         ],
                       ),
                       Text(
